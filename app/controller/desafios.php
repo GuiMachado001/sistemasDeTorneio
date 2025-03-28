@@ -4,6 +4,10 @@ require '../../app/model/Database.php';
 class Desafio{
     public int $id_desafio;
     public int $pontos;
+
+    // public ?int $id_desafio;
+    // public ?int $pontos;
+
     public string $enunciado;
     public string $opcaoA;
     public string $opcaoB;
@@ -12,6 +16,24 @@ class Desafio{
     public string $opcaoE;
     public string $resposta;
     public int $id_professor;
+
+    // public function __construct(
+    //     $id_desafio = null, $pontos = null, $enunciado = null, 
+    //     $opcaoA = null, $opcaoB = null, $opcaoC = null, 
+    //     $opcaoD = null, $opcaoE = null, $resposta = null, 
+    //     $id_professor = null
+    // ) {
+    //     $this->id_desafio = $id_desafio;
+    //     $this->pontos = $pontos;
+    //     $this->enunciado = $enunciado;
+    //     $this->opcaoA = $opcaoA;
+    //     $this->opcaoB = $opcaoB;
+    //     $this->opcaoC = $opcaoC;
+    //     $this->opcaoD = $opcaoD;
+    //     $this->opcaoE = $opcaoE;
+    //     $this->resposta = $resposta;
+    //     $this->id_professor = $id_professor;
+    // }
 
     public function cadastrar() {
         $db = new Database('desafio');
@@ -41,20 +63,36 @@ class Desafio{
         session_start();
         $id_professor = $_SESSION['id_professor'];  // Pega o ID do professor da sessão
         
-        // Alterar o where para filtrar pelos desafios do professor logado
-        $where = "id_professor = $id_professor";  // Garantir que estamos buscando apenas os times do professor logado
-        
-        $db = new Database('times_torneio');
+        // Se $where não for passado, criamos uma condição para o professor
+        if (!$where) {
+            $where = "id_professor = $id_professor";  // Garantir que estamos buscando apenas os desafios do professor logado
+        }
+    
+        $db = new Database('desafio');  // Mudança para a tabela correta
         $res = $db->select($where, $order, $limit)->fetchAll(PDO::FETCH_CLASS, self::class);
         return $res;
     }
 
-    public function buscar_por_id($id){
-        $db = new Database('desafio');
-
+public function buscar_por_id($id){
+    $db = new Database('desafio');
+    
+    // Verificar se o ID é válido antes de tentar buscar
+    if (is_numeric($id) && $id > 0) {
         $obj = $db->select('id_desafio ='.$id)->fetchObject(self::class);
-        return $obj; //retorna um obj da classe usuario
+        
+        // Se o objeto retornado for nulo, criar um novo objeto Desafio com valores padrão
+        if ($obj) {
+            return $obj;
+        } else {
+            // Se o desafio não for encontrado, retornar um objeto vazio ou null
+            return null;
+        }
+    } else {
+        // Se o ID não for válido, retornar null
+        return null;
     }
+}
+    
 
     public function atualizar(){
         $db = new Database('desafio');

@@ -39,7 +39,7 @@
         </li>
         
         <li class="nav-item">
-          <a class="nav-link active text-white" aria-current="page" href="../questionario/questionario.php">Questionario</a>
+          <a class="nav-link active text-white" aria-current="page" href="../questionario/escolher_equipe.php">Questionario</a>
         </li>
       </ul>
 
