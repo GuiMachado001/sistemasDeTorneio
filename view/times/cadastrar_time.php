@@ -1,6 +1,6 @@
 <?php
 // Iniciar a sessão no início do arquivo
-session_start();
+require '../init.php';
 
 // Verificar se o professor está logado (se o id_professor existe na sessão)
 if (!isset($_SESSION['id_professor'])) {

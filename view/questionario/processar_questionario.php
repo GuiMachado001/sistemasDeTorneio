@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         require '../../app/controller/desafios.php'; // Controller que interage com o banco
 
         // Obter o ID do time da sessão ou da URL
-        session_start();
+        require '../init.php';
         $id_time = $_SESSION['id_time'] ?? null; // Supondo que o id_time foi salvo na sessão
 
         foreach ($respostas as $id_desafio => $resposta) {

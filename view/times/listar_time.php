@@ -1,9 +1,5 @@
 <?php
-// Iniciar a sessão se ainda não estiver iniciada
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
+require '../init.php';
 // Verificar se o professor está logado
 if (!isset($_SESSION['id_professor'])) {
     // Caso não esteja logado, redireciona para a página de login

@@ -1,5 +1,5 @@
 <?php
-session_start();
+require '../init.php';
 
 
 // Verificar se o professor está logado
