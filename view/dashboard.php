@@ -62,6 +62,21 @@ $id_do_professor = $_SESSION['id_professor'];  // Agora você tem o ID do profes
         </li>
         
         <li class="nav-item dropdown">
+          <!-- Dropdown link para Premiação -->
+          <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownPremiacao" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Permiação
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownDesafios">
+                <li class="nav-item">
+                <a class="nav-link" href="./premiacao/cadastrar_premiacao.php">Cadastrar Premiação</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="./premiacao/listar_premiacao.php">Listar Premiação</a>
+                </li>
+            </ul>
+        </li>
+        
+        <li class="nav-item dropdown">
             <!-- Dropdown link para Times -->
           <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownTimes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Times

@@ -50,6 +50,19 @@ CREATE TABLE pontuacao (
     FOREIGN KEY(id_desafio) REFERENCES desafio(id_desafio)
 );
 
+CREATE TABLE premiacao (
+    id_premiacao INT NOT NULL AUTO_INCREMENT,
+    descricao TEXT NOT NULL,
+    id_professor INT NOT NULL,
+    id_desafio INT NOT NULL,
+    PRIMARY KEY(id_premiacao),
+    FOREIGN KEY(id_professor) REFERENCES professor(id_professor),
+    FOREIGN KEY(id_desafio) REFERENCES desafio(id_desafio)
+);
+
+INSERT INTO premiacao (descricao, id_professor, id_desafio) 
+VALUES ('Prêmio liberado "KIT 01 ARDUINO" da fase 01', 1, 1);
+
 
 DELIMITER //
 

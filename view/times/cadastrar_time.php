@@ -50,6 +50,7 @@ require './menuTimes.php';
     <div class="container">
         <h1 class="mt-4 text-center">Cadastrar Time</h1>
         <form method="POST" enctype="multipart/form-data">
+            
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome do Time</label>
                 <input type="text" class="form-control" name="nome" required>
