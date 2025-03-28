@@ -60,7 +60,7 @@ class Desafio{
     }
 
     public function buscar($where = null, $order = null, $limit = null) {
-        session_start();
+        // session_start();
         $id_professor = $_SESSION['id_professor'];  // Pega o ID do professor da sessão
         
         // Se $where não for passado, criamos uma condição para o professor
