@@ -4,10 +4,10 @@
 
 class Database {
     private $conn;
-    private string $local = 'localhost';
+    private string $local = '192.168.22.9';
     private string $db = 'torneioArduino';
-    private string $user = 'devweb';
-    private string $password = 'suporte@22';
+    private string $user = 'fabrica32';
+    private string $password = 'fabrica2025';
     private $table;
 
     // private $conn;

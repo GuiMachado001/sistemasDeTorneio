@@ -42,9 +42,9 @@ class Desafio{
         $id_professor = $_SESSION['id_professor'];  // Pega o ID do professor da sessão
         
         // Alterar o where para filtrar pelos desafios do professor logado
-        $where = "id_professor = $id_professor";  // Garantir que estamos buscando apenas os desafios do professor logado
+        $where = "id_professor = $id_professor";  // Garantir que estamos buscando apenas os times do professor logado
         
-        $db = new Database('desafio');
+        $db = new Database('times_torneio');
         $res = $db->select($where, $order, $limit)->fetchAll(PDO::FETCH_CLASS, self::class);
         return $res;
     }
