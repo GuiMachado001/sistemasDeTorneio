@@ -39,7 +39,7 @@ class Desafio{
         $db = new Database('desafio');
         
         // Obter o ID do professor da sessão
-        session_start();
+        // session_start();
         $id_professor = $_SESSION['id_professor'];
 
         // Associamos o id_professor ao desafio
