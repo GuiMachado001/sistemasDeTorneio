@@ -23,7 +23,7 @@ class Times_torneio {
 
     // Método para buscar os times do professor logado
     public function buscar($where = null, $order = null, $limit = null) {
-        session_start();
+        // A sessão já foi iniciada pelo init.php
         $id_professor = $_SESSION['id_professor'];  // Pega o ID do professor da sessão
         
         // Alterar o where para filtrar pelos desafios do professor logado
