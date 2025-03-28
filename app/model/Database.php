@@ -3,12 +3,12 @@
 
 
 class Database {
-    private $conn;
-    private string $local = 'localhost';
-    private string $db = 'torneioArduino';
-    private string $user = 'devweb';
-    private string $password = 'suporte@22';
-    private $table;
+    // private $conn;
+    // private string $local = 'localhost';
+    // private string $db = 'torneioArduino';
+    // private string $user = 'devweb';
+    // private string $password = 'suporte@22';
+    // private $table;
 
     // private $conn;
     // private string $local = 'localhost';
@@ -16,6 +16,14 @@ class Database {
     // private string $user = 'root';
     // private string $password = 'suporte@22';
     // private $table;
+// eliandro root
+    private $conn;
+    private string $local = 'localhost';
+    private string $db = 'torneioArduino';
+    private string $user = 'root';
+    private string $password = '';
+    private $table;
+
 
     function __construct($table = null){
         $this->table = $table;
