@@ -5,7 +5,6 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Verificar se o professor está logado
 if (!isset($_SESSION['id_professor'])) {
-    // Caso não esteja logado, redireciona para a página de login
     header('Location: ../login.php');
     exit();
 }
@@ -15,7 +14,7 @@ require '../../app/controller/time.php';
 $objUser = new Times_torneio();
 
 // Buscar os times cadastrados pelo professor logado
-$dados = $objUser->buscar('id_professor = ' . $_SESSION['id_professor']); // Apenas os times do professor logado
+$dados = $objUser->buscar('id_professor = ' . $_SESSION['id_professor']);
 ?>
 
 <!DOCTYPE html>
@@ -34,29 +33,26 @@ $dados = $objUser->buscar('id_professor = ' . $_SESSION['id_professor']); // Ape
     </div>
 
     <?php
-    // Verifica se não há times e exibe uma mensagem
     if (empty($dados)) {
         echo "<p>Nenhum time encontrado.</p>";
     } else {
         echo '<div class="times-list">';
         
-        // Loop para exibir os times
         foreach ($dados as $index => $time) {
-            $hasImage = $index !== 0;  // O primeiro time não terá imagem
+            $hasImage = $index !== 0;
             echo '<div class="card-container">';
 
-            // Verifica se a propriedade id_times existe
+            // Garante que a propriedade correta está definida
             if (!isset($time->id_times)) {
                 echo "<p>Erro: ID do time não encontrado.</p>";
                 continue;
             }
 
-            // Se não for o primeiro time, exibe a imagem
             if ($hasImage) {
                 echo '<img src="../../assets/img/imgVS.png" alt="' . htmlspecialchars($time->nome) . '" class="card-image">';
             }
 
-            // Link para o questionário da equipe
+            // Corrigido: usando id_times corretamente
             echo '<a href="./questionario.php?id_time=' . $time->id_times . '" class="card-link">
                     <div class="card">
                         <div class="card-int">

@@ -37,6 +37,8 @@ class Times_torneio {
 
     // Método para buscar um time pelo id
     public function buscar_por_id($id){
+        $id_time = $_GET['id_time'] ?? null;
+
         $db = new Database('times');
         $obj = $db->select('id_times =' . (int)$id)->fetchObject(self::class);
         return $obj;
