@@ -13,7 +13,7 @@ class Database {
     private $conn;
     private string $local = 'localhost';
     private string $db = 'torneioArduino';
-    private string $user = 'devweb';
+    private string $user = 'root';
     private string $password = 'suporte@22';
     private $table;
 
@@ -21,6 +21,9 @@ class Database {
         $this->table = $table;
         $this->conecta();
 
+    }
+    public function getConnection() {
+        return $this->conn;
     }
 
     private function conecta(){
