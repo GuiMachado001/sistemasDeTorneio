@@ -1,72 +1,68 @@
 <?php
-require_once '../init.php'; // Para inicializar variáveis e sessões
-require_once '../../app/model/Database.php'; // Para incluir a classe de conexão com o banco
-
-// Criar uma instância da classe Database
-$database = new Database();
-$pdo = $database->getConnection();  // Obter a conexão PDO com o banco de dados
+require '../init.php';
 
 ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
-// Verificar se o ID do time está armazenado na sessão
-if (!isset($_SESSION['id_time'])) {
-    echo "Erro: Não foi possível encontrar o ID do time.";
+// Verificar se o ID do time foi passado na URL e armazená-lo na sessão
+if (isset($_GET['id_time'])) {
+    $_SESSION['id_time'] = $_GET['id_time'];  // Salvar ID na sessão
+    $id_time = $_GET['id_time'];
+} elseif (isset($_SESSION['id_time'])) {
+    $id_time = $_SESSION['id_time']; // Se não veio na URL, usa o salvo na sessão
+} else {
+    header('Location: escolhe_time.php');
     exit();
 }
 
-$id_time = $_SESSION['id_time'];
+require '../../app/controller/desafios.php';
 
-// Verificar se as respostas foram enviadas
-if (isset($_POST['resposta'])) {
-    // Loop através das respostas recebidas
-    foreach ($_POST['resposta'] as $id_desafio => $resposta) {
-        // Verificar se a resposta é válida
-        if (!in_array($resposta, ['a', 'b', 'c', 'd', 'e'])) {
-            echo "Resposta inválida para o desafio $id_desafio.";
-            exit();
-        }
+// Criar um objeto Desafio
+$desafio = new Desafio();
 
-        // Inserir a resposta no banco de dados
-        try {
-            // Buscar a resposta correta para o desafio
-            $sql_resposta = "SELECT resposta FROM desafio WHERE id_desafio = :id_desafio";
-            $stmt_resposta = $pdo->prepare($sql_resposta);
-            $stmt_resposta->execute([':id_desafio' => $id_desafio]);
+// Verificar se o time já tem um conjunto de perguntas armazenado na sessão
+if (!isset($_SESSION['desafios'][$id_time])) {
+    // Buscar desafios aleatórios e limitar a 5 perguntas
+    $desafio_item = $desafio->buscar_por_id($id_desafio);
 
-            // Se a resposta não for encontrada
-            if ($stmt_resposta->rowCount() == 0) {
-                echo "Desafio não encontrado.";
-                exit();
-            }
-
-            $resposta_correta = $stmt_resposta->fetch(PDO::FETCH_ASSOC)['resposta'];
-
-            // Verificar se a resposta está correta
-            $pontos = ($resposta === $resposta_correta) ? 10 : 0; // 10 pontos para resposta correta
-
-            // Inserir pontuação no banco de dados
-            $sql = "INSERT INTO pontuacao (id_times, id_desafio, pontos) VALUES (:id_times, :id_desafio, :pontos)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([
-                ':id_times' => $id_time,
-                ':id_desafio' => $id_desafio,
-                ':pontos' => $pontos
-            ]);
-
-            // Armazenar a resposta na sessão
-            $_SESSION['respostas'][$id_desafio] = $resposta;
-
-        } catch (Exception $e) {
-            // Exibir a mensagem de erro para depuração
-            echo "Erro ao processar a resposta: " . $e->getMessage();
-            exit();
-        }
-    }
-
-    echo "Respostas enviadas com sucesso!";
+    $_SESSION['desafios'][$id_time] = array_slice($desafios, 0, 5); // Armazenar 5 perguntas aleatórias na sessão
 } else {
-    echo "Nenhuma resposta foi enviada.";
+    // Usar as perguntas armazenadas para o time
+    $desafios = $_SESSION['desafios'][$id_time];
 }
+
+if (empty($desafios)) {
+    echo "<p>Não há perguntas disponíveis para este time.</p>";
+    exit();
+}
+
+// Inicializar a sessão de respostas para o time se ainda não existir
+if (!isset($_SESSION['respostas'][$id_time])) {
+    $_SESSION['respostas'][$id_time] = [];
+}
+
+// Verificar as respostas do formulário e calcular os pontos
+$total_pontos = 0;
+foreach ($_POST['resposta'] as $id_desafio => $resposta_usuario) {
+    // Buscar o desafio correspondente
+    $desafio_item = $desafio->buscarPorId($id_desafio);
+
+    // Verificar se a resposta do usuário está correta
+    if ($desafio_item->resposta === $resposta_usuario) {
+        // Adicionar os pontos do desafio à pontuação total
+        $total_pontos += $desafio_item->pontos;
+
+        // Salvar a resposta no banco de dados ou na sessão (dependendo do seu design)
+        $_SESSION['respostas'][$id_time][$id_desafio] = $resposta_usuario;
+
+        // Atualizar a tabela de pontuação no banco de dados
+        $sql = "UPDATE pontuacao SET pontos = ? WHERE id_times = ? AND id_desafio = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$total_pontos, $id_time, $id_desafio]);
+    }
+}
+
+// Mostrar a pontuação total para o time
+echo "Você obteve " . $total_pontos . " pontos.";
 ?>

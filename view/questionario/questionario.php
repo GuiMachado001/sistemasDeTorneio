@@ -17,17 +17,24 @@ require '../../app/controller/desafios.php';
 // Criar um objeto Desafio
 $desafio = new Desafio();
 
-// Buscar desafios aleatórios e limitar a 5 perguntas
-$desafios = $desafio->buscar(null, 'RAND()');
-$desafios = array_slice($desafios, 0, 5);
+// Verificar se o time já tem um conjunto de perguntas armazenado na sessão
+if (!isset($_SESSION['desafios'][$id_time])) {
+    // Buscar desafios aleatórios e limitar a 5 perguntas
+    $desafios = $desafio->buscar(null, 'RAND()');
+    $_SESSION['desafios'][$id_time] = array_slice($desafios, 0, 5); // Armazenar 5 perguntas aleatórias na sessão
+} else {
+    // Usar as perguntas armazenadas para o time
+    $desafios = $_SESSION['desafios'][$id_time];
+}
 
 if (empty($desafios)) {
     echo "<p>Não há perguntas disponíveis para este time.</p>";
     exit();
 }
 
-if (!isset($_SESSION['respostas'])) {
-    $_SESSION['respostas'] = [];
+// Inicializar a sessão de respostas para o time se ainda não existir
+if (!isset($_SESSION['respostas'][$id_time])) {
+    $_SESSION['respostas'][$id_time] = [];
 }
 ?>
 
@@ -46,16 +53,10 @@ if (!isset($_SESSION['respostas'])) {
 
     <div class="container">
         <form id="questionario_form" action="./processar_questionario.php" method="POST">
-            <?php
+        <?php
             $cont = 1;
             foreach ($desafios as $desafio_item) {
-                // Verificar se a pergunta já foi respondida
-                if (isset($_SESSION['respostas'][$desafio_item->id_desafio])) {
-                    echo "<p><strong>Pergunta " . $cont . " já foi respondida.</strong></p>";
-                    $cont++;
-                    continue;
-                }
-
+                // A pergunta pode ser exibida mesmo que já tenha sido respondida
                 echo '<div class="question">';
                 echo '<span>' . $cont . ') </span>';
                 echo '<span><strong>' . htmlspecialchars($desafio_item->enunciado) . '</strong></span>';
