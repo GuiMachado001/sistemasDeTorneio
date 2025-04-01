@@ -1,5 +1,5 @@
 <?php
-require '../init.php';
+require_once '../init.php';
 // Verificar se o professor está logado
 if (!isset($_SESSION['id_professor'])) {
     // Caso não esteja logado, redireciona para a página de login
@@ -14,7 +14,7 @@ $objUser = new Times_torneio();
 // Buscar os times cadastrados pelo professor logado
 $dados = $objUser->buscar('id_professor = '.$_SESSION['id_professor']); // Apenas os times do professor logado
 
-require './menuTimes.php';
+require_once './menuTimes.php';
 ?>
 
 <!DOCTYPE html>
@@ -32,9 +32,9 @@ require './menuTimes.php';
         <h1 class="mt-4 text-center">Lista de Times</h1>
 
         <!-- Exibir mensagem se não houver times cadastrados -->
-        <?php if ($mensagem): ?>
+        <!-- <?php if ($mensagem): ?>
             <div class="alert alert-warning"><?= $mensagem ?></div>
-        <?php endif; ?>
+        <?php endif; ?> -->
 
         <table class="table table-striped">
             <thead>
