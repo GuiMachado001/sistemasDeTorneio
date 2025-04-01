@@ -3,10 +3,10 @@ require '../init.php';
 
 // Verificar se o ID do time foi passado na URL e armazená-lo na sessão
 if (isset($_GET['id_time'])) {
-    $_SESSION['id_time'] = $_GET['id_time'];  // Salvar ID na sessão
+    $_SESSION['id_time'] = $_GET['id_time'];  
     $id_time = $_GET['id_time'];
 } elseif (isset($_SESSION['id_time'])) {
-    $id_time = $_SESSION['id_time']; // Se não veio na URL, usa o salvo na sessão
+    $id_time = $_SESSION['id_time']; 
 } else {
     header('Location: escolhe_time.php');
     exit();
@@ -26,8 +26,9 @@ if (empty($desafios)) {
     exit();
 }
 
-if (!isset($_SESSION['respostas'])) {
-    $_SESSION['respostas'] = [];
+// Garantir que as respostas sejam armazenadas separadamente por time
+if (!isset($_SESSION['respostas'][$id_time])) {
+    $_SESSION['respostas'][$id_time] = [];
 }
 ?>
 
@@ -49,8 +50,8 @@ if (!isset($_SESSION['respostas'])) {
             <?php
             $cont = 1;
             foreach ($desafios as $desafio_item) {
-                // Verificar se a pergunta já foi respondida
-                if (isset($_SESSION['respostas'][$desafio_item->id_desafio])) {
+                // Verificar se a pergunta já foi respondida por este time
+                if (isset($_SESSION['respostas'][$id_time][$desafio_item->id_desafio])) {
                     echo "<p><strong>Pergunta " . $cont . " já foi respondida.</strong></p>";
                     $cont++;
                     continue;
@@ -83,28 +84,5 @@ if (!isset($_SESSION['respostas'])) {
             </button>
         </form>
     </div>
-
-    <script>
-    $(document).ready(function() {
-        $("#questionario_form").on("submit", function(event) {
-            event.preventDefault(); // Impede o recarregamento da página
-
-            var formData = $(this).serialize(); // Pega os dados do formulário
-
-            $.ajax({
-                url: './processar_questionario.php',  
-                type: 'POST',
-                data: formData,  
-                success: function(response) {
-                    alert(response); // Exibe a resposta do servidor
-                    $("#questionario_form :input").prop("disabled", true); // Desabilita inputs após o envio
-                },
-                error: function() {
-                    alert('Ocorreu um erro. Tente novamente.');
-                }
-            });
-        });
-    });
-    </script>
 </body>
 </html>

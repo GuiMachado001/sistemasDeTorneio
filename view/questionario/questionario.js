@@ -9,11 +9,11 @@ $(document).ready(function() {
             type: 'POST',
             data: formData,  
             success: function(response) {
-                alert(response); // Exibe a resposta do servidor
+                console.log(response); // Exibe a resposta do servidor no console
                 $("#questionario_form :input").prop("disabled", true); // Desabilita inputs após o envio
             },
-            error: function() {
-                alert('Ocorreu um erro. Tente novamente.');
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Erro na requisição: ' + textStatus + ' - ' + errorThrown);
             }
         });
     });
