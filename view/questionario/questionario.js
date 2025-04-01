@@ -11,6 +11,9 @@ $(document).ready(function() {
             success: function(response) {
                 console.log(response); // Exibe a resposta do servidor no console
                 $("#questionario_form :input").prop("disabled", true); // Desabilita inputs após o envio
+                
+                // Redireciona para a página de premiação
+                window.location.href = './premiacao/premio1.php';
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Erro na requisição: ' + textStatus + ' - ' + errorThrown);
