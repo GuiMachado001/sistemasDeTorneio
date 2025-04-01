@@ -114,9 +114,13 @@ public function buscar_por_id($id){
     }
 
     public function excluir(){
+        $db = new Database('pontuacao');
+    
+        // Primeiro, excluir todas as pontuações relacionadas ao desafio
+        $db->delete('id_desafio ='.$this->id_desafio);
+    
+        // Agora, excluir o desafio
         $db = new Database('desafio');
-
-        $res = $db->delete('id_desafio ='.$this->id_desafio);
-        return $res;
+        return $db->delete('id_desafio ='.$this->id_desafio);
     }
 }

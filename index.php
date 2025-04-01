@@ -57,7 +57,8 @@ if (isset($_POST['Login'])) {
 
         <a href="#">Forget Password<br> </a>
         <div class="text-center">
-            <p style="color: #59238F;">Sign-Up</p>
+            <!-- <p style="color: #59238F;">Sign-Up</p> -->
+            <a href="./cadastrar_usuario.php" style="color: #59238F;">Sing Up</a>
         </div>
     </div>
 
