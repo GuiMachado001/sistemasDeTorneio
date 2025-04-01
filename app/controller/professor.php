@@ -8,6 +8,19 @@ class Professor{
     public string $nome;
     public string $senha;
 
+    public function cadastrar(){
+        $db = new Database('professor');
+
+        $res = $db->insert(
+                [
+                    'nome'=> $this->nome,
+                    'senha'=> $this->senha,
+
+                ]
+            );
+        return $res;
+    }
+
     public function logar(){
         // Criar instância da classe Database para trabalhar com a tabela professor
         $db = new Database('professor');
@@ -31,4 +44,6 @@ class Professor{
             return false;  // Falha no login
         }
     }
+
+
 }
