@@ -36,7 +36,7 @@ if (isset($_POST['cadastrar'])) {
     $res = $objUser->cadastrar();
 
     if ($res) {
-        echo "<script>alert('Cadastrado com Sucesso'); window.location.href = 'listar_desafio.php'; </script>";
+        echo "<script>alert('Cadastrado com Sucesso'); window.location.href = 'cadastrar_desafio.php'; </script>";
     } else {
         echo "<script>alert('Erro ao Cadastrar'); </script>";
     }
@@ -58,7 +58,7 @@ require './menuPerguntas.php';
 
 
 <div class="container">
-    <h1 class="mt-4 text-center">Cadastrar Desafio</h1>
+    <h1 class="mt-4 text-center">Cadastro de Desafio</h1>
 </div>
 
 <div class="container">
@@ -66,12 +66,12 @@ require './menuPerguntas.php';
 
 
         <div class="mb-3">
-            <label for="enunciado" class="form-label">Enunciado da pergunta</label>
+            <label for="enunciado" class="form-label">Digite o enunciado da pergunta</label>
             <input type="text" class="form-control" id="enunciado" name="enunciado" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Respostas</label>
+            <label class="form-label">Opções de resposta</label>
             <div class="row">
                 <div class="col-2"><label>a)</label><input type="text" class="form-control" name="opcaoA" required></div>
                 <div class="col-2"><label>b)</label><input type="text" class="form-control" name="opcaoB" required></div>
@@ -82,9 +82,9 @@ require './menuPerguntas.php';
         </div>
 
         <div class="mb-3">
-            <label for="resposta" class="form-label">Escolha a Resposta Correta</label>
+            <label for="resposta" class="form-label">Selecione a alternativa correta</label>
             <select class="form-control" name="resposta" id="resposta" required>
-                <option value="" disabled selected>Selecione uma opção...</option>
+                <option value="" disabled selected>Escolha uma alternativa...</option>
                 <option value="a">a</option>
                 <option value="b">b</option>
                 <option value="c">c</option>
@@ -94,12 +94,12 @@ require './menuPerguntas.php';
         </div>
 
         <div class="mb-3">
-            <label for="nome" class="form-label">Quantidade de pontos recebidos</label>
+            <label for="nome" class="form-label">Quantidade de pontos</label>
             <input type="number" class="form-control" id="pontos" name="pontos" required>
         </div>
 
 
-        <button type="reset" class="btn btn-danger">Cancelar</button>
+        <button type="reset" class="btn btn-danger">Limpar</button>
         <button type="submit" name="cadastrar" class="btn btn-primary">Cadastrar</button>
     </form>
 </div>

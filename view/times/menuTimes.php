@@ -15,14 +15,14 @@
         <li class="nav-item dropdown">
           <!-- Dropdown link para Desafios -->
           <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownDesafios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Desafios
+              Perguntas
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownDesafios">
                 <li class="nav-item">
-                <a class="nav-link" href="../desafios/cadastrar_desafio.php">Cadastrar Desafio</a>
+                <a class="nav-link" href="../desafios/cadastrar_desafio.php">Cadastrar Pergunta</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="../desafios/listar_desafio.php">Listar Desafio</a>
+                  <a class="nav-link" href="../desafios/listar_desafio.php">Listar Pergunta</a>
                 </li>
             </ul>
         </li>

@@ -20,7 +20,7 @@ $dados = $objUser->buscar('id_professor = ' . $_SESSION['id_professor']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Times Cadastrados</title>
+    <title>Equipes Cadastradas</title>
     <link rel="stylesheet" href="../../assets/time2.css">
     <script src="../../assets/times.js" defer></script>
 </head>
@@ -32,7 +32,7 @@ $dados = $objUser->buscar('id_professor = ' . $_SESSION['id_professor']);
 
     <?php
     if (empty($dados)) {
-        echo "<p>Nenhum time encontrado.</p>";
+        echo "<p>Nenhuma equipe encontrada.</p>";
     } else {
         echo '<div class="times-list">';
         
@@ -42,7 +42,7 @@ $dados = $objUser->buscar('id_professor = ' . $_SESSION['id_professor']);
 
             // Garante que a propriedade correta está definida
             if (!isset($time->id_times)) {
-                echo "<p>Erro: ID do time não encontrado.</p>";
+                echo "<p>Erro: ID da equipe não encontrado.</p>";
                 continue;
             }
 
@@ -55,7 +55,7 @@ $dados = $objUser->buscar('id_professor = ' . $_SESSION['id_professor']);
                     <div class="card">
                         <div class="card-int">
                             <div class="hello">' . htmlspecialchars($time->nome) . '</div>
-                            <span class="hidden">Entrar</span>
+                            <span class="hidden">Acessar equipe</span>
                         </div>
                     </div>
                   </a>';

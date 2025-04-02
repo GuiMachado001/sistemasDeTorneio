@@ -20,7 +20,7 @@ if (isset($_GET['id_desc'])) {
 
     // Verificar se o desafio foi encontrado
     if (!$desc_edit) {
-        echo "<script>alert('Desafio não encontrado!'); window.location.href = './listar_desafio.php';</script>";
+        echo "<script>alert('Pergunta não encontrada!!'); window.location.href = './listar_desafio.php';</script>";
         exit();
     }
 
@@ -51,9 +51,9 @@ if (isset($_GET['id_desc'])) {
         $res = $desc_edit->atualizar();
 
         if ($res) {
-            echo "<script>alert('Editado com Sucesso'); window.location.href = './listar_desafio.php';</script>";
+            echo "<script>alert('Pergunta editada com sucesso'); window.location.href = './listar_desafio.php';</script>";
         } else {
-            echo "<script>alert('Erro ao Editar');</script>";
+            echo "<script>alert('Erro ao editar a pergunta');</script>";
         }
     }
 }
@@ -74,7 +74,7 @@ require './menuPerguntas.php';
 <body>
 
 <div class="container">
-    <h1 class="mt-4 text-center">Editar Desafio</h1>
+    <h1 class="mt-4 text-center">Edição de Pergunta</h1>
 </div>
 
 <div class="container">

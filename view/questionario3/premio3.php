@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explosão de Confetes</title>
+    <title>Quiz</title>
 
     <!-- Importando o GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
@@ -18,12 +18,12 @@
             <div id="emitter"></div>
         </div>
         <div class="containerDescricaoPremiacao">
-            <span class="spnDescPremio">você passou pela terceira fase !</span>
-            <span class="spnPremio">parabéns</span>
+            <span class="spnDescPremio">Você concluiu todos os questionários!</span>
+            <span class="spnPremio">parabéns!</span>
         </div>  
 
         <div class="voltage-button">
-            <span>Desafios Finalizados, chame o motor do Desafio para prosseguir</span>
+            <span>Todos os desafios foram concluídos! Por favor, chame o monitor para prosseguir.</span>
     </div>
 
     <script>

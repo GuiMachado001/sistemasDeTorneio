@@ -22,7 +22,7 @@ $desafios = $desafio->buscar(null, 'RAND()');
 $desafios = array_slice($desafios, 0, 5);
 
 if (empty($desafios)) {
-    echo "<p>Não há perguntas disponíveis para este time.</p>";
+    echo "<p>Não há perguntas disponíveis para esta equipe.</p>";
     exit();
 }
 
@@ -37,7 +37,7 @@ if (!isset($_SESSION['respostas'][$id_time])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Questionário</title>
+    <title>Quiz</title>
     <link rel="stylesheet" href="../../assets/questinario.css">
     <script src="./questionario.js" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -74,7 +74,7 @@ if (!isset($_SESSION['respostas'][$id_time])) {
             }
             ?>
             <button type="submit" class="cssbuttons-io-button">
-                Enviar Respostas
+                Enviar respostas
                 <div class="icon">
                     <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0 0h24v24H0z" fill="none"></path>

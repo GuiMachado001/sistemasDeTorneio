@@ -66,7 +66,7 @@ require './menuTimes.php';
                 <input type="text" class="form-control" name="nome" value="<?= htmlspecialchars($desc_edit->nome) ?>" required>
             </div>
 
-            <button type="reset" class="btn btn-danger">Cancelar</button>
+            <button type="reset" class="btn btn-danger">Limpar</button>
             <button type="submit" name="editar" class="btn btn-primary">Salvar</button>
         </form>
     </div>
